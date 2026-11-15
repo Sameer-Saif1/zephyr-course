@@ -1,0 +1,8 @@
+description: Our custom LED-based sensor driver
+compatible: "our,driver"
+
+properties:
+  gpios:
+    type: phandle-array
+    required: true
+    description: GPIO driving the LED used as the "sensor"
