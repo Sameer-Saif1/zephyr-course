@@ -15,6 +15,11 @@ int main(void)
 		struct sensor_value val;
 		sensor_channel_get(sensor_dev, SENSOR_CHAN_ALL, &val);
 		printk("Sensor reported state: %d\n", val.val1);
+		our_driver_set_level(sensor_dev, 42);
+		int32_t lvl = 0;
+		our_driver_get_level(sensor_dev, &lvl);
+		printk("Level is now: %d\n", (int)lvl);
+
 	}
 
 	if (!gpio_is_ready_dt(&heartbeat_led)) {

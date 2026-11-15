@@ -1,5 +1,7 @@
 #define DT_DRV_COMPAT our_driver
 
+#include <stdbool.h>
+#include <stdint.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/kernel.h>
@@ -14,7 +16,29 @@ struct our_driver_config {
 
 struct our_driver_data {
 	bool led_state;
+	int32_t level;
 };
+
+int our_driver_set_level(const struct device *dev, int32_t level)
+{
+	struct our_driver_data *data = dev->data;
+
+	if (level < 0 || level > 100) {
+		return -EINVAL;
+	}
+
+	data->level = level;
+	LOG_INF("level set to %d", level);
+	return 0;
+}
+
+int our_driver_get_level(const struct device *dev, int32_t *level)
+{
+	struct our_driver_data *data = dev->data;
+
+	*level = data->level;
+	return 0;
+}
 
 static int our_driver_sample_fetch(const struct device *dev, enum sensor_channel chan)
 {
