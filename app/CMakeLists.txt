@@ -7,3 +7,4 @@ project(my_zephyr_app)
 
 target_sources(app PRIVATE src/main.cpp)
 target_sources(app PRIVATE src/our_driver.c)
+target_sources(app PRIVATE src/sensor_shell.c)
